@@ -1,99 +1,99 @@
 import {
-  Geometry2d,
-  RecordProps,
-  Rectangle2d,
-  resizeBox,
-  T,
+  DefaultToolbar,
+  DefaultToolbarContent,
+  TLComponents,
   Tldraw,
-  TLResizeInfo,
+  TldrawUiMenuContextProvider,
+  TldrawUiMenuItem,
+  TLUiOverrides,
+  useIsToolSelected,
+  useTools,
 } from "tldraw";
 import "tldraw/tldraw.css";
-import { TLBaseShape } from "tldraw";
-import { HTMLContainer, ShapeUtil } from "tldraw";
+import { useEffect, useState } from "react";
 
-// [1]
-type ICustomShape = TLBaseShape<
-  "my-custom-shape",
-  {
-    w: number;
-    h: number;
-    text: string;
-  }
->;
+import { myInteractiveShape } from "./widgets/Todo";
+import CustomTopZone from "./widgets/TopZone";
+import {
+  StickerBindingUtil,
+  StickerShapeUtil,
+  StickerTool,
+} from "./widgets/Sticker";
+import { CardShapeUtil } from "./widgets/CardShape/CardShapeUtil";
+import { CardShapeTool } from "./widgets/CardShape/CardShapeTool";
 
-// [2]
-export class MyShapeUtil extends ShapeUtil<ICustomShape> {
-  // [a]
-  static override type = "my-custom-shape" as const;
-  static override props: RecordProps<ICustomShape> = {
-    w: T.number,
-    h: T.number,
-    text: T.string,
-  };
-
-  // [b]
-  getDefaultProps(): ICustomShape["props"] {
-    return {
-      w: 200,
-      h: 200,
-      text: "I'm a shape!",
+const shapeUtils = [myInteractiveShape, StickerShapeUtil, CardShapeUtil];
+const bindingUtils = [StickerBindingUtil];
+const tools = [StickerTool, CardShapeTool];
+const overrides: TLUiOverrides = {
+  tools(editor, schema) {
+    schema["sticker"] = {
+      id: "sticker",
+      label: "Sticker",
+      icon: "heart-icon",
+      kbd: "p",
+      onSelect: () => {
+        editor.setCurrentTool("sticker");
+      },
     };
-  }
 
-  // [c]
-  override canEdit() {
-    return false;
-  }
-  override canResize() {
-    return true;
-  }
-  override isAspectRatioLocked() {
-    return false;
-  }
+    // Create a tool item in the ui's context.
+    schema.card = {
+      id: "card",
+      icon: "color",
+      label: "Card",
+      kbd: "c",
+      onSelect: () => {
+        editor.setCurrentTool("card");
+      },
+    };
 
-  // [d]
-  getGeometry(shape: ICustomShape): Geometry2d {
-    return new Rectangle2d({
-      width: shape.props.w,
-      height: shape.props.h,
-      isFilled: true,
-    });
-  }
-
-  // [e]
-  override onResize(shape: any, info: TLResizeInfo<any>) {
-    return resizeBox(shape, info);
-  }
-
-  // [f]
-  component(shape: ICustomShape) {
+    return schema;
+  },
+};
+const components: TLComponents = {
+  TopPanel: CustomTopZone,
+  Toolbar: (...props) => {
+    const tools = useTools();
+    const isStickerSelected = useIsToolSelected(tools["sticker"]);
+    const isCardSelected = useIsToolSelected(tools["card"]);
     return (
-      <HTMLContainer style={{ backgroundColor: "#efefef" }}>
-        {shape.props.text}
-      </HTMLContainer>
+      <DefaultToolbar {...props}>
+        <TldrawUiMenuItem
+          {...tools["sticker"]}
+          isSelected={isStickerSelected}
+        />
+        <TldrawUiMenuItem {...tools["card"]} isSelected={isCardSelected} />
+        <DefaultToolbarContent />
+      </DefaultToolbar>
     );
-  }
-
-  // [g]
-  indicator(shape: ICustomShape) {
-    return <rect width={shape.props.w} height={shape.props.h} />;
-  }
-}
-
-// [3]
-const customShape = [MyShapeUtil];
+  },
+};
 
 export default function Newtab() {
+  const [isUsingFocusMode, setUsingFocusMode] = useState(false);
+
+  useEffect(() => {
+    chrome.storage.local.get(["isUsingFocusMode"], (result) => {
+      setUsingFocusMode(result.isUsingFocusMode);
+    });
+  }, [isUsingFocusMode]);
+
   return (
     <div style={{ position: "fixed", inset: 0 }}>
       <Tldraw
         persistenceKey="example"
-        shapeUtils={customShape}
+        shapeUtils={shapeUtils}
+        bindingUtils={bindingUtils}
+        tools={tools}
+        overrides={overrides}
+        components={components}
         onMount={(editor) => {
-          // editor.createShape({ type: "my-custom-shape", x: 100, y: 100 });
-          editor.focus();
+          editor.updateInstanceState({
+            isFocusMode: isUsingFocusMode || false,
+          });
         }}
-      />
+      ></Tldraw>
     </div>
   );
 }
