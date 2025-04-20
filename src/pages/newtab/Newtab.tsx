@@ -10,6 +10,7 @@ import {
 } from "tldraw";
 import "tldraw/tldraw.css";
 import { useEffect, useState } from "react";
+import Logo from "@assets/img/icon.svg";
 
 import {
   StickerBindingUtil,
@@ -28,7 +29,11 @@ const components: TLComponents = {
     const isCardSelected = useIsToolSelected(tools["card"]);
     return (
       <DefaultToolbar {...props}>
-        <TldrawUiMenuItem {...tools["card"]} isSelected={isCardSelected} />
+        <TldrawUiMenuItem
+          {...tools["card"]}
+          isSelected={isCardSelected}
+          icon="tool-card"
+        />
         <DefaultToolbarContent />
       </DefaultToolbar>
     );
@@ -85,6 +90,11 @@ export default function Newtab() {
           editor.updateInstanceState({
             isFocusMode: isUsingFocusMode || false,
           });
+        }}
+        assetUrls={{
+          icons: {
+            "tool-card": "/icon.svg",
+          },
         }}
       ></Tldraw>
     </div>

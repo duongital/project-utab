@@ -9,8 +9,15 @@ utilities included as openning new tab:
 - [ ] enable focus mode on popup
 - [ ] custome background (static or dynamic)
 - [ ] implement widgets:
+  - [x] plain text
   - [ ] world clock
   - [ ] to do list
+
+### demo
+
+create cards on your new tab:
+
+![utab demo](./src/assets/img/cover.png)
 
 ### credit
 
