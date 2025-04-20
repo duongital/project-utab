@@ -9,11 +9,10 @@ import {
   stopEventPropagation,
 } from "tldraw";
 import { cardShapeMigrations } from "./card-shape-migration";
-import { cardShapeProps } from "./card-shape-props";
-import { ICardShape } from "./card-shape-types";
-
-// There's a guide at the bottom of this file!
-const ANIMAL_EMOJIS = ["🐶", "🐱", "🐨", "🐮", "🐴"];
+import { cardShapeProps, ICardShape } from "./card-shape-props";
+import CardTypeButtons from "./CardTypeButtons";
+import CardTypePlainText from "./CardType/CardTypePlainText";
+import CardTypeTodo from "./CardType/CardTypeTodo";
 
 export class CardShapeUtil extends ShapeUtil<ICardShape> {
   static override type = "card" as const;
@@ -41,6 +40,8 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
       h: 300,
       color: "black",
       animal: 0,
+      type: undefined,
+      data: undefined,
     };
   }
 
@@ -84,62 +85,24 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
           }}
           className="p-2 text-center font-bold"
         >
-          Card Name
+          {shape.props.type === undefined
+            ? "Select Card Type"
+            : `Card ${shape.props.type}`}
         </header>
-        <article className="flex flex-col items-center justify-center p-4">
-          <div
-            className="border-1 border-black rounded-md p-4 w-full mx-2"
-            style={{
-              pointerEvents: isEditing ? "all" : "none",
-            }}
-          >
-            <p>isEditing: {JSON.stringify(isEditing)}</p>
-            {ANIMAL_EMOJIS[shape.props.animal]}
-            {isEditing ? (
-              <button
-                onClick={() => {
-                  this.editor.updateShape({
-                    id: shape.id,
-                    type: shape.type,
-                    props: {
-                      ...shape.props,
-                      animal: (shape.props.animal + 1) % ANIMAL_EMOJIS.length,
-                    },
-                  });
-                }}
-              >
-                Next
-              </button>
-            ) : (
-              <div>
-                <p style={{ fontSize: 12 }}>Double Click to Edit</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Ipsum placeat consequatur soluta accusantium iure reiciendis
-                  est, nihil quae temporibus, repudiandae perspiciatis modi
-                  libero hic? Eum voluptatibus maxime in tenetur iste?
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div
-            style={{
-              pointerEvents: "all",
-            }}
-          >
-            {/* button click section */}
-            <div className="flex gap-2 m-2 items-center justify-center">
-              <h2>Clicks: {count}</h2>
-              <button
-                className="bg-white text-black rounded-md p-2"
-                onClick={() => setCount((count) => count + 1)}
-                onPointerDown={(e) => e.stopPropagation()}
-              >
-                {bounds.w.toFixed()}x{bounds.h.toFixed()}
-              </button>
-            </div>
-          </div>
+        <article className="flex flex-col p-4">
+          {shape.props.type === undefined && (
+            <CardTypeButtons self={this} shape={shape} />
+          )}
+          {shape.props.type === "text" && (
+            <CardTypePlainText
+              isEditing={isEditing}
+              shape={shape}
+              self={this}
+            />
+          )}
+          {shape.props.type === "todo" && (
+            <CardTypeTodo isEditing={isEditing} shape={shape} self={this} />
+          )}
         </article>
       </HTMLContainer>
     );

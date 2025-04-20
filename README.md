@@ -1,3 +1,5 @@
+![utab logo](./public/dev-icon-32.png)
+
 ### utab - your own new tab
 
 utilities included as openning new tab:
