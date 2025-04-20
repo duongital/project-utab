@@ -3,7 +3,6 @@ import {
   DefaultToolbarContent,
   TLComponents,
   Tldraw,
-  TldrawUiMenuContextProvider,
   TldrawUiMenuItem,
   TLUiOverrides,
   useIsToolSelected,
@@ -12,8 +11,6 @@ import {
 import "tldraw/tldraw.css";
 import { useEffect, useState } from "react";
 
-import { myInteractiveShape } from "./widgets/Todo";
-import CustomTopZone from "./widgets/TopZone";
 import {
   StickerBindingUtil,
   StickerShapeUtil,
@@ -22,12 +19,26 @@ import {
 import { CardShapeUtil } from "./widgets/CardShape/CardShapeUtil";
 import { CardShapeTool } from "./widgets/CardShape/CardShapeTool";
 
-const shapeUtils = [myInteractiveShape, StickerShapeUtil, CardShapeUtil];
+const shapeUtils = [StickerShapeUtil, CardShapeUtil];
 const bindingUtils = [StickerBindingUtil];
 const tools = [StickerTool, CardShapeTool];
+const components: TLComponents = {
+  Toolbar: (...props) => {
+    const tools = useTools();
+    const isCardSelected = useIsToolSelected(tools["card"]);
+    return (
+      <DefaultToolbar {...props}>
+        <TldrawUiMenuItem {...tools["card"]} isSelected={isCardSelected} />
+        <DefaultToolbarContent />
+      </DefaultToolbar>
+    );
+  },
+};
+
 const overrides: TLUiOverrides = {
   tools(editor, schema) {
-    schema["sticker"] = {
+    // Sticker tool
+    schema.sticker = {
       id: "sticker",
       label: "Sticker",
       icon: "heart-icon",
@@ -49,24 +60,6 @@ const overrides: TLUiOverrides = {
     };
 
     return schema;
-  },
-};
-const components: TLComponents = {
-  TopPanel: CustomTopZone,
-  Toolbar: (...props) => {
-    const tools = useTools();
-    const isStickerSelected = useIsToolSelected(tools["sticker"]);
-    const isCardSelected = useIsToolSelected(tools["card"]);
-    return (
-      <DefaultToolbar {...props}>
-        <TldrawUiMenuItem
-          {...tools["sticker"]}
-          isSelected={isStickerSelected}
-        />
-        <TldrawUiMenuItem {...tools["card"]} isSelected={isCardSelected} />
-        <DefaultToolbarContent />
-      </DefaultToolbar>
-    );
   },
 };
 

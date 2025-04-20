@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 export default function Popup() {
-  const [isEnabled, setEnabled] = useState(false);
+  const [isEnabled, setEnabled] = useState(true);
 
   useEffect(() => {
     chrome.storage.local.get(["isUsingFocusMode"], (result) => {
-      setEnabled(result.isUsingFocusMode || false);
+      setEnabled(result.isUsingFocusMode || true);
     });
   }, [isEnabled]);
 

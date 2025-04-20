@@ -7,5 +7,6 @@ export type ICardShape = TLBaseShape<
     w: number;
     h: number;
     color: TLDefaultColorStyle;
+    animal: number;
   }
 >;

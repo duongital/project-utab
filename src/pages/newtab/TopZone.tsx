@@ -5,7 +5,7 @@ import {
   useTools,
 } from "tldraw";
 
-export default function CustomTopZone() {
+export default function TopZone() {
   const tools = useTools();
   const isStickerSelected = useIsToolSelected(tools["sticker"]);
   const isCardSelected = useIsToolSelected(tools["card"]);
