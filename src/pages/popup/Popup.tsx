@@ -5,9 +5,9 @@ export default function Popup() {
 
   useEffect(() => {
     chrome.storage.local.get(["isUsingFocusMode"], (result) => {
-      setEnabled(result.isUsingFocusMode || true);
+      setEnabled(result.isUsingFocusMode);
     });
-  }, [isEnabled]);
+  }, []);
 
   return (
     <div className="p-4 flex flex-col gap-y-4">
@@ -19,9 +19,10 @@ export default function Popup() {
           checked={isEnabled}
           onChange={(e) => {
             const newSetting = e.target.checked;
-            setEnabled(newSetting);
+
             chrome.storage.local.set({ isUsingFocusMode: newSetting }, () => {
               console.log("Value saved:", newSetting);
+              setEnabled(newSetting);
             });
           }}
         />

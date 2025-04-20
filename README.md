@@ -6,12 +6,14 @@ utilities included as openning new tab:
 
 - [x] override new tab
 - [x] draw or note (tldraw)
-- [ ] enable focus mode on popup
-- [ ] custome background (static or dynamic)
+- [x] enable focus mode on popup
+- [ ] add daisy ui or react aria?
+- [ ] tiptap
 - [ ] implement widgets:
   - [x] plain text
   - [ ] world clock
   - [ ] to do list
+- [ ] custome background (static or dynamic)
 
 ### demo
 

@@ -69,13 +69,15 @@ const overrides: TLUiOverrides = {
 };
 
 export default function Newtab() {
-  const [isUsingFocusMode, setUsingFocusMode] = useState(false);
+  const [usingFocusMode, setUsingFocusMode] = useState(true);
 
   useEffect(() => {
     chrome.storage.local.get(["isUsingFocusMode"], (result) => {
-      setUsingFocusMode(result.isUsingFocusMode);
+      if (result.isUsingFocusMode !== undefined) {
+        setUsingFocusMode(result.isUsingFocusMode);
+      }
     });
-  }, [isUsingFocusMode]);
+  }, []);
 
   return (
     <div style={{ position: "fixed", inset: 0 }}>
@@ -88,7 +90,7 @@ export default function Newtab() {
         components={components}
         onMount={(editor) => {
           editor.updateInstanceState({
-            isFocusMode: isUsingFocusMode || false,
+            isFocusMode: usingFocusMode,
           });
         }}
         assetUrls={{
