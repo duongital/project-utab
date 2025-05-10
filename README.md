@@ -21,6 +21,10 @@ create cards on your new tab:
 
 ![utab demo](./src/assets/img/cover.png)
 
+on full browser:
+
+![image](https://github.com/user-attachments/assets/68825f38-943d-4ec7-9846-c9efe17f14f8)
+
 ### credit
 
 - extension template from https://github.com/JohnBra/vite-web-extension
