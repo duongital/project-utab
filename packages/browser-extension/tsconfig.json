@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["chrome", "node", "webextension-polyfill"],
+    "baseUrl": ".",
+    "paths": {
+      "@utab/ui-components": ["../ui-components/src"],
+      "@utab/tldraw-widgets": ["../tldraw-widgets/src"],
+      "@src/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@locales/*": ["src/locales/*"],
+      "@pages/*": ["src/pages/*"]
+    }
+  },
+  "include": ["src/**/*", "*.ts"],
+  "exclude": ["dist", "dist_chrome", "dist_firefox", "node_modules"]
+}

@@ -1,33 +1,28 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "types": ["vite/client", "node", "chrome"],
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": false,
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@assets/*": ["src/assets/*"],
-      "@locales/*": ["src/locales/*"],
-      "@pages/*": ["src/pages/*"]
+      "@utab/ui-components": ["./packages/ui-components/src"],
+      "@utab/tldraw-widgets": ["./packages/tldraw-widgets/src"]
     }
   },
-  "include": [
-    "src",
-    "utils",
-    "vite.config.base.ts",
-    "vite.config.chrome.ts",
-    "vite.config.firefox.ts"
-  ],
+  "references": [
+    { "path": "./packages/browser-extension" },
+    { "path": "./packages/ui-components" },
+    { "path": "./packages/tldraw-widgets" }
+  ]
 }
