@@ -15,6 +15,13 @@ utilities included as openning new tab:
   - [ ] to do list
 - [ ] custome background (static or dynamic)
 
+### vibe code
+
+see: CLAUDE.md
+
+- [x] refactor current src code into monorepo
+- [ ] add web app integration for preview deployment
+
 ### demo
 
 create cards on your new tab:
