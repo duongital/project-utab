@@ -20,6 +20,8 @@ utilities included as openning new tab:
 see: CLAUDE.md
 
 - [x] refactor current src code into monorepo
+
+- [ ] check if it works by installing to browser
 - [ ] add web app integration for preview deployment
 
 ### demo
