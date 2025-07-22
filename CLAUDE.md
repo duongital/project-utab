@@ -9,11 +9,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm build` - Build all packages
 - `pnpm dev` or `pnpm dev:chrome` - Start development server for Chrome extension
 - `pnpm dev:firefox` - Start development server for Firefox extension
+- `pnpm dev:web` - Start web development server (localhost:3000)
+- `pnpm build:web` - Build web app for production
+- `pnpm preview:web` - Preview web app production build
 
 ### Package-Specific Commands
 - `pnpm build --filter @utab/browser-extension` - Build extension only
 - `pnpm build --filter @utab/tldraw-widgets` - Build widgets library
 - `pnpm build --filter @utab/ui-components` - Build UI components library
+- `pnpm --filter @utab/web dev` - Start web app development server directly
 
 ## Project Architecture
 
@@ -27,7 +31,8 @@ project-utab/
 │   ├── browser-extension/        # Main extension package
 │   ├── tldraw-widgets/          # Custom TLDraw widgets library  
 │   └── ui-components/           # Shared UI components library
-├── apps/                        # Future applications
+├── apps/
+│   └── web/                     # Web development version (@utab/web)
 ├── docs/                        # Documentation
 ├── package.json                 # Workspace root
 ├── pnpm-workspace.yaml         # Workspace configuration
@@ -55,11 +60,21 @@ project-utab/
 - `packages/ui-components/src/` - Shared React components, hooks, and styles
 - Ready for future expansion of reusable UI elements
 
+**Web App (@utab/web):**
+- `apps/web/src/` - Web development version of the TLDraw canvas application
+- `apps/web/src/components/TldrawCanvas.tsx` - Shared TLDraw component with same functionality as browser extension
+- `apps/web/src/pages/Dashboard.tsx` - Web version of the newtab page
+- `apps/web/src/pages/Settings.tsx` - Web version of extension options with localStorage
+- React Router setup for navigation between Canvas and Settings
+- Uses same TLDraw widgets and focus mode functionality as extension
+- Runs on localhost:3000 for faster development and testing
+
 **Build System:**
 - Vite-based build with separate configs for Chrome and Firefox in browser-extension package
 - Uses `@crxjs/vite-plugin` for Chrome extension manifest v3 support
 - Custom Vite plugins in `packages/browser-extension/custom-vite-plugins.ts`
 - Nodemon configs for hot-reloading during development
+- Standard Vite setup for web app with TailwindCSS and React
 - TypeScript project references for efficient builds across packages
 
 **Widget System:**
@@ -81,6 +96,13 @@ The extension includes focus mode functionality accessible through the popup int
 - `packages/browser-extension/vite.config.chrome.ts` - Chrome-specific build config
 - `packages/browser-extension/vite.config.firefox.ts` - Firefox-specific build config
 - `packages/browser-extension/src/pages/newtab/Newtab.tsx` - Main TLDraw integration component
+
+**Web App:**
+- `apps/web/package.json` - Web app dependencies and scripts
+- `apps/web/vite.config.ts` - Vite configuration for web development
+- `apps/web/tsconfig.json` - TypeScript configuration extending root config
+- `apps/web/src/main.tsx` - React app entry point with router setup
+- `apps/web/src/App.tsx` - Main app component with routing
 
 **Workspace:**
 - `pnpm-workspace.yaml` - PNPM workspace configuration

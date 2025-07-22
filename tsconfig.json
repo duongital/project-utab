@@ -23,6 +23,7 @@
   "references": [
     { "path": "./packages/browser-extension" },
     { "path": "./packages/ui-components" },
-    { "path": "./packages/tldraw-widgets" }
+    { "path": "./packages/tldraw-widgets" },
+    { "path": "./apps/web" }
   ]
 }

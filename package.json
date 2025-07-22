@@ -7,6 +7,9 @@
     "dev": "pnpm --filter browser-extension dev:chrome",
     "dev:chrome": "pnpm --filter browser-extension dev:chrome",
     "dev:firefox": "pnpm --filter browser-extension dev:firefox",
+    "dev:web": "pnpm --filter @utab/web dev",
+    "build:web": "pnpm --filter @utab/web build",
+    "preview:web": "pnpm --filter @utab/web preview",
     "lint": "pnpm -r lint",
     "type-check": "pnpm -r type-check"
   },
