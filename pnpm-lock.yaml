@@ -24,7 +24,7 @@ importers:
         specifier: ^5.8.2
         version: 5.8.3
 
-  apps/web:
+  apps/extension:
     dependencies:
       '@utab/tldraw-widgets':
         specifier: workspace:*
@@ -32,52 +32,6 @@ importers:
       '@utab/ui-components':
         specifier: workspace:*
         version: link:../../packages/ui-components
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
-      react-router-dom:
-        specifier: ^6.28.0
-        version: 6.30.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      tldraw:
-        specifier: ^3.12.0
-        version: 3.14.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-    devDependencies:
-      '@tailwindcss/vite':
-        specifier: ^4.0.17
-        version: 4.1.11(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.8
-      '@types/react-dom':
-        specifier: ^19.1.1
-        version: 19.1.6(@types/react@19.1.8)
-      '@vitejs/plugin-react':
-        specifier: ^4.3.4
-        version: 4.7.0(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
-      tailwindcss:
-        specifier: ^4.1.2
-        version: 4.1.11
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.3
-      vite:
-        specifier: ^6.1.0
-        version: 6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)
-      vite-tsconfig-paths:
-        specifier: ^5.1.4
-        version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
-
-  packages/browser-extension:
-    dependencies:
-      '@utab/tldraw-widgets':
-        specifier: workspace:*
-        version: link:../tldraw-widgets
-      '@utab/ui-components':
-        specifier: workspace:*
-        version: link:../ui-components
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -151,6 +105,52 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.16.5)(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+      vite:
+        specifier: ^6.1.0
+        version: 6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
+
+  apps/web:
+    dependencies:
+      '@utab/tldraw-widgets':
+        specifier: workspace:*
+        version: link:../../packages/tldraw-widgets
+      '@utab/ui-components':
+        specifier: workspace:*
+        version: link:../../packages/ui-components
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+      react-router-dom:
+        specifier: ^6.28.0
+        version: 6.30.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      tldraw:
+        specifier: ^3.12.0
+        version: 3.14.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.17
+        version: 4.1.11(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19.1.1
+        version: 19.1.6(@types/react@19.1.8)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.7.0(vite@6.3.5(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
+      tailwindcss:
+        specifier: ^4.1.2
+        version: 4.1.11
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
