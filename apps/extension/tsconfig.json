@@ -5,8 +5,8 @@
     "types": ["chrome", "node", "webextension-polyfill"],
     "baseUrl": ".",
     "paths": {
-      "@utab/ui-components": ["../ui-components/src"],
-      "@utab/tldraw-widgets": ["../tldraw-widgets/src"],
+      "@utab/ui-components": ["../../packages/ui-components/src"],
+      "@utab/tldraw-widgets": ["../../packages/tldraw-widgets/src"],
       "@src/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@locales/*": ["src/locales/*"],

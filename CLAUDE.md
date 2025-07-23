@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm preview:web` - Preview web app production build
 
 ### Package-Specific Commands
-- `pnpm build --filter @utab/browser-extension` - Build extension only
+- `pnpm build --filter @utab/extension` - Build extension only
 - `pnpm build --filter @utab/tldraw-widgets` - Build widgets library
 - `pnpm build --filter @utab/ui-components` - Build UI components library
 - `pnpm --filter @utab/web dev` - Start web app development server directly
@@ -28,10 +28,10 @@ This is a **monorepo** containing a browser extension called "utab" that replace
 ```
 project-utab/
 ├── packages/
-│   ├── browser-extension/        # Main extension package
 │   ├── tldraw-widgets/          # Custom TLDraw widgets library  
 │   └── ui-components/           # Shared UI components library
 ├── apps/
+│   ├── extension/               # Main browser extension app (@utab/extension)
 │   └── web/                     # Web development version (@utab/web)
 ├── docs/                        # Documentation
 ├── package.json                 # Workspace root
@@ -41,14 +41,14 @@ project-utab/
 
 ### Key Architecture Components
 
-**Browser Extension Package (@utab/browser-extension):**
-- `packages/browser-extension/src/pages/newtab/` - Main new tab replacement page
-- `packages/browser-extension/src/pages/popup/` - Browser extension popup interface
-- `packages/browser-extension/src/pages/options/` - Extension options/settings page
-- `packages/browser-extension/src/pages/content/` - Content script for web pages
-- `packages/browser-extension/src/pages/background/` - Background script for extension lifecycle
-- `packages/browser-extension/src/pages/panel/` - DevTools panel
-- `packages/browser-extension/src/pages/devtools/` - DevTools integration
+**Browser Extension App (@utab/extension):**
+- `apps/extension/src/pages/newtab/` - Main new tab replacement page
+- `apps/extension/src/pages/popup/` - Browser extension popup interface
+- `apps/extension/src/pages/options/` - Extension options/settings page
+- `apps/extension/src/pages/content/` - Content script for web pages
+- `apps/extension/src/pages/background/` - Background script for extension lifecycle
+- `apps/extension/src/pages/panel/` - DevTools panel
+- `apps/extension/src/pages/devtools/` - DevTools integration
 
 **TLDraw Widgets Package (@utab/tldraw-widgets):**
 - `packages/tldraw-widgets/src/shapes/CardShape/` - Custom card widgets with types (plain text, todo)
@@ -70,9 +70,9 @@ project-utab/
 - Runs on localhost:3000 for faster development and testing
 
 **Build System:**
-- Vite-based build with separate configs for Chrome and Firefox in browser-extension package
+- Vite-based build with separate configs for Chrome and Firefox in extension app
 - Uses `@crxjs/vite-plugin` for Chrome extension manifest v3 support
-- Custom Vite plugins in `packages/browser-extension/custom-vite-plugins.ts`
+- Custom Vite plugins in `apps/extension/custom-vite-plugins.ts`
 - Nodemon configs for hot-reloading during development
 - Standard Vite setup for web app with TailwindCSS and React
 - TypeScript project references for efficient builds across packages
@@ -90,12 +90,12 @@ The extension includes focus mode functionality accessible through the popup int
 ## Important Files
 
 **Browser Extension:**
-- `packages/browser-extension/manifest.json` - Chrome extension manifest (production)
-- `packages/browser-extension/manifest.dev.json` - Development manifest overrides
-- `packages/browser-extension/vite.config.base.ts` - Shared Vite configuration
-- `packages/browser-extension/vite.config.chrome.ts` - Chrome-specific build config
-- `packages/browser-extension/vite.config.firefox.ts` - Firefox-specific build config
-- `packages/browser-extension/src/pages/newtab/Newtab.tsx` - Main TLDraw integration component
+- `apps/extension/manifest.json` - Chrome extension manifest (production)
+- `apps/extension/manifest.dev.json` - Development manifest overrides
+- `apps/extension/vite.config.base.ts` - Shared Vite configuration
+- `apps/extension/vite.config.chrome.ts` - Chrome-specific build config
+- `apps/extension/vite.config.firefox.ts` - Firefox-specific build config
+- `apps/extension/src/pages/newtab/Newtab.tsx` - Main TLDraw integration component
 
 **Web App:**
 - `apps/web/package.json` - Web app dependencies and scripts

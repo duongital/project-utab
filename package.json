@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "pnpm -r build",
-    "dev": "pnpm --filter browser-extension dev:chrome",
-    "dev:chrome": "pnpm --filter browser-extension dev:chrome",
-    "dev:firefox": "pnpm --filter browser-extension dev:firefox",
+    "dev": "pnpm --filter @utab/extension dev:chrome",
+    "dev:chrome": "pnpm --filter @utab/extension dev:chrome",
+    "dev:firefox": "pnpm --filter @utab/extension dev:firefox",
     "dev:web": "pnpm --filter @utab/web dev",
     "build:web": "pnpm --filter @utab/web build",
     "preview:web": "pnpm --filter @utab/web preview",

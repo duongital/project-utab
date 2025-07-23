@@ -1,5 +1,5 @@
 {
-  "name": "@utab/browser-extension",
+  "name": "@utab/extension",
   "version": "1.4.0",
   "description": "TLDraw is on your new tab page.",
   "license": "MIT",

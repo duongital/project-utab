@@ -21,7 +21,7 @@
     }
   },
   "references": [
-    { "path": "./packages/browser-extension" },
+    { "path": "./apps/extension" },
     { "path": "./packages/ui-components" },
     { "path": "./packages/tldraw-widgets" },
     { "path": "./apps/web" }
