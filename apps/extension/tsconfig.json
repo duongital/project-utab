@@ -13,6 +13,6 @@
       "@pages/*": ["src/pages/*"]
     }
   },
-  "include": ["src/**/*", "*.ts"],
+  "include": ["src/**/*", "*.ts", "../../packages/tldraw-widgets/src/**/*", "../../packages/ui-components/src/**/*"],
   "exclude": ["dist", "dist_chrome", "dist_firefox", "node_modules"]
 }

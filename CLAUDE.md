@@ -53,7 +53,8 @@ project-utab/
 **TLDraw Widgets Package (@utab/tldraw-widgets):**
 - `packages/tldraw-widgets/src/shapes/CardShape/` - Custom card widgets with types (plain text, todo)
 - `packages/tldraw-widgets/src/shapes/Sticker/` - Custom sticker functionality with binding
-- Exports: `CardShapeUtil`, `CardShapeTool`, `StickerShapeUtil`, `StickerTool`, `StickerBindingUtil`
+- `packages/tldraw-widgets/src/tldraw-canvas/` - Shared TldrawCanvas component used by both extension and web apps
+- Exports: `CardShapeUtil`, `CardShapeTool`, `StickerShapeUtil`, `StickerTool`, `StickerBindingUtil`, `TldrawCanvas`, `TldrawCanvasProps`
 - Custom toolbar integration with TLDraw's UI system
 
 **UI Components Package (@utab/ui-components):**
@@ -62,11 +63,11 @@ project-utab/
 
 **Web App (@utab/web):**
 - `apps/web/src/` - Web development version of the TLDraw canvas application
-- `apps/web/src/components/TldrawCanvas.tsx` - Shared TLDraw component with same functionality as browser extension
+- `apps/web/src/components/TldrawCanvas.tsx` - Wrapper component using shared TldrawCanvas from @utab/tldraw-widgets
 - `apps/web/src/pages/Dashboard.tsx` - Web version of the newtab page
 - `apps/web/src/pages/Settings.tsx` - Web version of extension options with localStorage
 - React Router setup for navigation between Canvas and Settings
-- Uses same TLDraw widgets and focus mode functionality as extension
+- Uses shared TldrawCanvas component with localStorage storage and same widgets as extension
 - Runs on localhost:3000 for faster development and testing
 
 **Build System:**
@@ -83,6 +84,14 @@ The extension has an extensible widget system using the tldraw-widgets package:
 - Widget types are defined in `packages/tldraw-widgets/src/shapes/CardShape/CardType/`
 - Migration system for shape data (`card-shape-migration.ts`)
 - Sticker system with binding utilities for attaching to other shapes
+- Shared TldrawCanvas component with configurable storage (Chrome extension storage vs localStorage)
+
+**Shared TldrawCanvas Component:**
+The `TldrawCanvas` component in `@utab/tldraw-widgets` provides:
+- Unified TLDraw implementation used by both extension and web app
+- Configurable storage type (`chrome` for extension, `localStorage` for web)
+- Customizable persistence keys, focus mode defaults, and asset URLs
+- Type-safe props interface with `TldrawCanvasProps`
 
 **Focus Mode:**
 The extension includes focus mode functionality accessible through the popup interface.
@@ -95,7 +104,7 @@ The extension includes focus mode functionality accessible through the popup int
 - `apps/extension/vite.config.base.ts` - Shared Vite configuration
 - `apps/extension/vite.config.chrome.ts` - Chrome-specific build config
 - `apps/extension/vite.config.firefox.ts` - Firefox-specific build config
-- `apps/extension/src/pages/newtab/Newtab.tsx` - Main TLDraw integration component
+- `apps/extension/src/pages/newtab/Newtab.tsx` - Uses shared TldrawCanvas component with Chrome storage
 
 **Web App:**
 - `apps/web/package.json` - Web app dependencies and scripts

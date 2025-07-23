@@ -11,4 +11,7 @@ export type { ICardShape } from './shapes/CardShape/card-shape-props'
 // Sticker exports  
 export { StickerShapeUtil, StickerBindingUtil, StickerTool } from './shapes/Sticker'
 
+// TldrawCanvas exports
+export { TldrawCanvas, type TldrawCanvasProps } from './tldraw-canvas'
+
 // Re-export types and utilities that might be needed
