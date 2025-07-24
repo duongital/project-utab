@@ -48,7 +48,16 @@ export default function CardTypeButtons({ self, shape }: CardTypeButtonsProps) {
           + todo list
         </button>
         <button
-          onClick={() => window.alert("coming soon...")}
+          onClick={() => {
+            self.editor.updateShape({
+              id: shape.id,
+              type: shape.type,
+              props: {
+                ...shape.props,
+                type: "timer",
+              },
+            });
+          }}
           onPointerDown={(e) => e.stopPropagation()}
           className="bg-white p-1 rounded-sm cursor-pointer"
         >

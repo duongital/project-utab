@@ -13,6 +13,7 @@ import { cardShapeProps, ICardShape } from "./card-shape-props";
 import CardTypeButtons from "./CardTypeButtons";
 import CardTypePlainText from "./CardType/CardTypePlainText";
 import CardTypeTodo from "./CardType/CardTypeTodo";
+import CardTypeTimer from "./CardType/CardTypeTimer";
 
 export class CardShapeUtil extends ShapeUtil<ICardShape> {
   static override type = "card" as const;
@@ -70,7 +71,7 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
     return (
       <HTMLContainer
         id={shape.id}
-        onPointerDown={isEditing ? stopEventPropagation : undefined}
+        onPointerDown={stopEventPropagation}
         style={{
           border: `2px solid ${theme[shape.props.color].solid}`,
           backgroundColor: theme[shape.props.color].semi,
@@ -83,11 +84,13 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
             backgroundColor: "white",
             color: theme[shape.props.color].solid,
           }}
-          className="p-2 text-center font-bold"
+          className="p-2 font-bold flex items-center justify-between"
         >
-          {shape.props.type === undefined
-            ? "Select Card Type"
-            : `Card ${shape.props.type}`}
+          <div className="flex-1 text-center">
+            {shape.props.type === undefined
+              ? "Select Card Type"
+              : `Card ${shape.props.type}`}
+          </div>
         </header>
         <article className="flex flex-col p-4">
           {shape.props.type === undefined && (
@@ -102,6 +105,9 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
           )}
           {shape.props.type === "todo" && (
             <CardTypeTodo isEditing={isEditing} shape={shape} self={this} />
+          )}
+          {shape.props.type === "timer" && (
+            <CardTypeTimer isEditing={isEditing} shape={shape} self={this} />
           )}
         </article>
       </HTMLContainer>
@@ -119,9 +125,18 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
   }
 
   override onEditEnd(shape: ICardShape) {
+    const originalY = shape.y;
+
     this.editor.animateShape(
-      { ...shape, rotation: shape.rotation + Math.PI * 2 },
-      { animation: { duration: 250 } }
+      { ...shape, y: originalY - 20 },
+      { animation: { duration: 150 } }
     );
+
+    setTimeout(() => {
+      this.editor.animateShape(
+        { ...shape, y: originalY },
+        { animation: { duration: 150 } }
+      );
+    }, 150);
   }
 }
