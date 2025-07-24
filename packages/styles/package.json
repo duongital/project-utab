@@ -8,7 +8,7 @@
     "dist/index.css"
   ],
   "scripts": {
-    "build": "node build.js --watch",
+    "build": "node build.js",
     "build:once": "node build.js",
     "dev": "node build.js --watch"
   },

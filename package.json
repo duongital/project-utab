@@ -3,14 +3,14 @@
   "version": "1.4.0",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter @utab/styles build:once && pnpm -r build",
-    "build:styles": "pnpm --filter @utab/styles build:once",
+    "build": "pnpm -r build",
+    "build:styles": "pnpm --filter @utab/styles build",
     "dev:styles": "pnpm --filter @utab/styles dev",
     "dev": "pnpm run dev:styles & pnpm --filter @utab/extension dev:chrome",
     "dev:chrome": "pnpm run dev:styles & pnpm --filter @utab/extension dev:chrome",
     "dev:firefox": "pnpm run dev:styles & pnpm --filter @utab/extension dev:firefox",
     "dev:web": "pnpm run dev:styles & pnpm --filter @utab/web dev",
-    "build:web": "pnpm --filter @utab/styles build:once && pnpm --filter @utab/web build",
+    "build:web": "pnpm --filter @utab/styles build && pnpm --filter @utab/web build",
     "preview:web": "pnpm --filter @utab/web preview",
     "lint": "pnpm -r lint",
     "type-check": "pnpm -r type-check"
