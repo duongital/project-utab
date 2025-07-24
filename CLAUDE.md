@@ -6,17 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Root Level Commands
 - `pnpm install` - Install all dependencies across workspace
-- `pnpm build` - Build all packages
-- `pnpm dev` or `pnpm dev:chrome` - Start development server for Chrome extension
-- `pnpm dev:firefox` - Start development server for Firefox extension
-- `pnpm dev:web` - Start web development server (localhost:3000)
-- `pnpm build:web` - Build web app for production
+- `pnpm build` - Build all packages (includes styles build)
+- `pnpm build:styles` - Build centralized TailwindCSS styles
+- `pnpm dev:styles` - Watch and rebuild styles on file changes
+- `pnpm dev` or `pnpm dev:chrome` - Start development server for Chrome extension (with styles watch)
+- `pnpm dev:firefox` - Start development server for Firefox extension (with styles watch)
+- `pnpm dev:web` - Start web development server (localhost:3000) (with styles watch)
+- `pnpm build:web` - Build web app for production (includes styles build)
 - `pnpm preview:web` - Preview web app production build
 
 ### Package-Specific Commands
 - `pnpm build --filter @utab/extension` - Build extension only
 - `pnpm build --filter @utab/tldraw-widgets` - Build widgets library
 - `pnpm build --filter @utab/ui-components` - Build UI components library
+- `pnpm build --filter @utab/styles` - Build styles package only
 - `pnpm --filter @utab/web dev` - Start web app development server directly
 
 ## Project Architecture
@@ -28,6 +31,7 @@ This is a **monorepo** containing a browser extension called "utab" that replace
 ```
 project-utab/
 ├── packages/
+│   ├── styles/                  # Centralized TailwindCSS styles (@utab/styles)
 │   ├── tldraw-widgets/          # Custom TLDraw widgets library  
 │   └── ui-components/           # Shared UI components library
 ├── apps/
@@ -57,6 +61,14 @@ project-utab/
 - Exports: `CardShapeUtil`, `CardShapeTool`, `StickerShapeUtil`, `StickerTool`, `StickerBindingUtil`, `TldrawCanvas`, `TldrawCanvasProps`
 - Custom toolbar integration with TLDraw's UI system
 
+**Styles Package (@utab/styles):**
+- `packages/styles/src/input.css` - Base TailwindCSS input file with custom theme
+- `packages/styles/dist/index.css` - Generated CSS output consumed by all apps
+- `packages/styles/tailwind.config.js` - TailwindCSS configuration scanning all monorepo files
+- `packages/styles/build.js` - Custom build system with file watching
+- Centralized TailwindCSS v3.4.x system watching all `.tsx/.jsx/.ts/.js` files across monorepo
+- Generates utility classes on-demand based on actual usage in components
+
 **UI Components Package (@utab/ui-components):**
 - `packages/ui-components/src/` - Shared React components, hooks, and styles
 - Ready for future expansion of reusable UI elements
@@ -75,8 +87,10 @@ project-utab/
 - Uses `@crxjs/vite-plugin` for Chrome extension manifest v3 support
 - Custom Vite plugins in `apps/extension/custom-vite-plugins.ts`
 - Nodemon configs for hot-reloading during development
-- Standard Vite setup for web app with TailwindCSS and React
+- Standard Vite setup for web app with React (removed TailwindCSS Vite plugin)
+- Centralized TailwindCSS build system in `@utab/styles` package
 - TypeScript project references for efficient builds across packages
+- Root scripts automatically build styles before other packages and run styles watcher in development
 
 **Widget System:**
 The extension has an extensible widget system using the tldraw-widgets package:
@@ -93,6 +107,14 @@ The `TldrawCanvas` component in `@utab/tldraw-widgets` provides:
 - Customizable persistence keys, focus mode defaults, and asset URLs
 - Type-safe props interface with `TldrawCanvasProps`
 
+**Centralized Styles System:**
+The `@utab/styles` package provides:
+- Single source of truth for TailwindCSS across the monorepo
+- Automatic scanning of all `.tsx/.jsx/.ts/.js` files in apps and packages
+- On-demand utility class generation based on actual usage
+- Custom build system with file watching for development
+- Both apps import styles via `@import '@utab/styles'` in their CSS files
+
 **Focus Mode:**
 The extension includes focus mode functionality accessible through the popup interface.
 
@@ -106,14 +128,22 @@ The extension includes focus mode functionality accessible through the popup int
 - `apps/extension/vite.config.firefox.ts` - Firefox-specific build config
 - `apps/extension/src/pages/newtab/Newtab.tsx` - Uses shared TldrawCanvas component with Chrome storage
 
+**Styles Package:**
+- `packages/styles/package.json` - Styles package configuration with TailwindCSS v3.4.x
+- `packages/styles/tailwind.config.js` - TailwindCSS configuration with content paths
+- `packages/styles/build.js` - Custom build script with file watching
+- `packages/styles/src/input.css` - Base TailwindCSS input with custom theme
+- `packages/styles/dist/index.css` - Generated CSS output (auto-generated, don't edit)
+
 **Web App:**
 - `apps/web/package.json` - Web app dependencies and scripts
-- `apps/web/vite.config.ts` - Vite configuration for web development
+- `apps/web/vite.config.ts` - Vite configuration for web development (removed TailwindCSS plugin)
 - `apps/web/tsconfig.json` - TypeScript configuration extending root config
 - `apps/web/src/main.tsx` - React app entry point with router setup
 - `apps/web/src/App.tsx` - Main app component with routing
+- `apps/web/src/index.css` - Imports centralized styles via `@import '@utab/styles'`
 
 **Workspace:**
 - `pnpm-workspace.yaml` - PNPM workspace configuration
-- Root `package.json` - Workspace scripts and shared dependencies
+- Root `package.json` - Workspace scripts with styles build integration
 - Root `tsconfig.json` - TypeScript project references and path mapping

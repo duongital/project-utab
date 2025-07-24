@@ -1,0 +1,24 @@
+{
+  "name": "@utab/styles",
+  "version": "1.0.0",
+  "description": "Centralized TailwindCSS styles for utab monorepo",
+  "type": "module",
+  "main": "dist/index.css",
+  "files": [
+    "dist/index.css"
+  ],
+  "scripts": {
+    "build": "node build.js --watch",
+    "build:once": "node build.js",
+    "dev": "node build.js --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14",
+    "chokidar": "^4.0.1",
+    "postcss": "^8.4.49",
+    "glob": "^11.0.0"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

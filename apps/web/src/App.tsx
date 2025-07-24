@@ -1,7 +1,9 @@
-import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Settings from './pages/Settings'
-import Navigation from './components/Navigation'
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import Navigation from "./components/Navigation";
+
+import "@utab/styles";
 
 function App() {
   return (
@@ -14,7 +16,7 @@ function App() {
         </Routes>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
