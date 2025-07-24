@@ -5,7 +5,7 @@ export default function TldrawCanvas() {
     <SharedTldrawCanvas
       persistenceKey="web-example"
       storageType="localStorage"
-      defaultFocusMode={false}
+      defaultFocusMode={true}
       assetUrls={{
         icons: {
           "tool-card": "/icon.svg",

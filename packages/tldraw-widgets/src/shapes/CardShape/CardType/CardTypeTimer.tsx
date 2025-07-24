@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { ICardShape } from "../card-shape-props";
 
 interface CardTypeTimerProps {
@@ -73,26 +74,26 @@ export default function CardTypeTimer({}: CardTypeTimerProps) {
           className="flex gap-2"
         >
           {!isRunning ? (
-            <button
+            <Slot
               onClick={handleStart}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-500 text-white hover:bg-green-600 h-10 px-4 py-2"
             >
-              Start
-            </button>
+              <button>Start</button>
+            </Slot>
           ) : (
-            <button
+            <Slot
               onClick={handleStop}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white hover:bg-red-600 h-10 px-4 py-2"
             >
-              Stop
-            </button>
+              <button>Stop</button>
+            </Slot>
           )}
-          <button
+          <Slot
             onClick={handleReset}
-            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-500 text-white hover:bg-gray-600 h-10 px-4 py-2"
           >
-            Reset
-          </button>
+            <button>Reset</button>
+          </Slot>
         </div>
 
         {!isRunning && seconds === 0 && (

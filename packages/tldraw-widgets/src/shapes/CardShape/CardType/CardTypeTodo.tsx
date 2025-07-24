@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as Checkbox from "@radix-ui/react-checkbox";
 import { ICardShape } from "../card-shape-props";
 
 interface CardTypeTodoProps {
@@ -33,26 +34,56 @@ export default function CardTypeTodo({
         }}
         className="flex flex-col"
       >
-        <label>
-          <input
-            className="mr-2"
-            type="checkbox"
-            name="a"
-            value="a"
+        <label className="flex items-center">
+          <Checkbox.Root
+            className="mr-2 flex h-4 w-4 appearance-none items-center justify-center rounded bg-white border border-gray-300 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
             checked={checkedItems.a || false}
-            onChange={() => handleCheckboxChange("a")}
-          />
+            onCheckedChange={() => handleCheckboxChange("a")}
+          >
+            <Checkbox.Indicator className="text-white">
+              <svg
+                width="10"
+                height="8"
+                viewBox="0 0 10 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 1L3.5 6.5L1 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Checkbox.Indicator>
+          </Checkbox.Root>
           drink water
         </label>
-        <label>
-          <input
-            className="mr-2"
-            type="checkbox"
-            name="b"
-            value="b"
+        <label className="flex items-center">
+          <Checkbox.Root
+            className="mr-2 flex h-4 w-4 appearance-none items-center justify-center rounded bg-white border border-gray-300 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
             checked={checkedItems.b || false}
-            onChange={() => handleCheckboxChange("b")}
-          />
+            onCheckedChange={() => handleCheckboxChange("b")}
+          >
+            <Checkbox.Indicator className="text-white">
+              <svg
+                width="10"
+                height="8"
+                viewBox="0 0 10 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 1L3.5 6.5L1 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Checkbox.Indicator>
+          </Checkbox.Root>
           learn Python
         </label>
       </div>

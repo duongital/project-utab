@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { ICardShape } from "../card-shape-props";
 
 interface CardTypePlainTextProps {
@@ -29,27 +30,30 @@ export default function CardTypePlainText({
       {/* <p>inside is editting: {JSON.stringify(isEditing)}</p> */}
       {shape.props.data === undefined && <p>Double click to edit</p>}
       {isEditing && (
-        <textarea
-          ref={textareaRef}
-          className="bg-white rounded-md p-4 w-full my-2"
-          cols={10}
-          rows={8}
+        <Slot
+          className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-white p-4 my-2"
           style={{
             pointerEvents: isEditing ? "all" : "none",
           }}
-          value={shape.props.data}
-          onChange={(event) => {
-            console.log(event.target.value);
-            self.editor.updateShape({
-              id: shape.id,
-              type: shape.type,
-              props: {
-                ...shape.props,
-                data: event.target.value,
-              },
-            });
-          }}
-        />
+        >
+          <textarea
+            ref={textareaRef}
+            cols={10}
+            rows={8}
+            value={shape.props.data}
+            onChange={(event) => {
+              console.log(event.target.value);
+              self.editor.updateShape({
+                id: shape.id,
+                type: shape.type,
+                props: {
+                  ...shape.props,
+                  data: event.target.value,
+                },
+              });
+            }}
+          />
+        </Slot>
       )}
       {!isEditing && <p>{shape.props.data}</p>}
     </article>
