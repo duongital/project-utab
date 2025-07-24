@@ -85,8 +85,6 @@ export class CardShapeUtil extends ShapeUtil<ICardShape> {
           }}
           className="p-2 text-center font-bold"
         >
-          <span className="text-2xl">hello</span>
-
           {shape.props.type === undefined
             ? "Select Card Type"
             : `Card ${shape.props.type}`}

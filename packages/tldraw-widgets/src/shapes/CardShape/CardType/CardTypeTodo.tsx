@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ICardShape } from "../card-shape-props";
 
 interface CardTypeTodoProps {
@@ -14,6 +15,15 @@ export default function CardTypeTodo({
   // There's a guide at the bottom of this file!
   const ANIMAL_EMOJIS = ["🐶", "🐱", "🐨", "🐮", "🐴"];
 
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+
+  const handleCheckboxChange = (name: string) => {
+    setCheckedItems((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
+  };
+
   return (
     <>
       <p>card todo goes here</p>
@@ -24,11 +34,25 @@ export default function CardTypeTodo({
         className="flex flex-col"
       >
         <label>
-          <input className="mr-2" type="checkbox" name="a" value="a" />
+          <input
+            className="mr-2"
+            type="checkbox"
+            name="a"
+            value="a"
+            checked={checkedItems.a || false}
+            onChange={() => handleCheckboxChange("a")}
+          />
           drink water
         </label>
         <label>
-          <input className="mr-2" type="checkbox" name="b" value="b" />
+          <input
+            className="mr-2"
+            type="checkbox"
+            name="b"
+            value="b"
+            checked={checkedItems.b || false}
+            onChange={() => handleCheckboxChange("b")}
+          />
           learn Python
         </label>
       </div>
@@ -56,7 +80,7 @@ export default function CardTypeTodo({
           </button>
         ) : (
           <div>
-            <p style={{ fontSize: 12 }}>Double Click to Edit</p>
+            <p className="font-bold">Double Click to Edit</p>
           </div>
         )}
       </div>
