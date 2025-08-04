@@ -16,7 +16,7 @@
     "type-check": "pnpm -r type-check"
   },
   "devDependencies": {
-    "typescript": "^5.8.2",
+    "typescript": "^5.9.2",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^9.23.0",
