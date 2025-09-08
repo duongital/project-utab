@@ -13,7 +13,7 @@
     "dev": "node build.js --watch"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.1.13",
     "chokidar": "^4.0.1",
     "postcss": "^8.4.49",
     "glob": "^11.0.0"
